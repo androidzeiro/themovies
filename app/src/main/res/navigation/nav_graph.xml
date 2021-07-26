@@ -9,14 +9,22 @@
         android:id="@+id/homeFragment"
         android:name="br.com.themovies.ui.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_detailsMovieFragment"
-            app:destination="@id/detailsMovieFragment" />
+            app:destination="@id/detailsMovieFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/detailsMovieFragment"
         android:name="br.com.themovies.ui.DetailsMovieFragment"
         android:label="fragment_details_movie"
-        tools:layout="@layout/fragment_details_movie" />
+        tools:layout="@layout/fragment_details_movie">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

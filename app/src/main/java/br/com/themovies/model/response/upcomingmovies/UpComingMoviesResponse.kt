@@ -4,7 +4,6 @@ package br.com.themovies.model.response.upcomingmovies
 import com.google.gson.annotations.SerializedName
 
 data class UpComingMoviesResponse(
-    @SerializedName("dates") val dates: DatesResponse,
     @SerializedName("page") val page: Int,
     @SerializedName("results") val results: List<ResultResponse>,
     @SerializedName("total_pages") val totalPages: Int,

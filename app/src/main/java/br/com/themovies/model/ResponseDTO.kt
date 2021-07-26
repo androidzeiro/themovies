@@ -1,4 +1,4 @@
-package com.jhonata.catapp.model
+package br.com.themovies.model
 
 class ResponseDTO<T>(
     val statusDTO: StatusDTO,

@@ -1,9 +1,9 @@
 package br.com.themovies.repository
 
 import br.com.themovies.model.response.detailsmovie.DetailsMovieResponse
-import br.com.themovies.model.response.upcomingmovies.ResultResponse
+import br.com.themovies.model.response.upcomingmovies.UpComingMoviesResponse
 import br.com.themovies.remote.TheMoviesApi
-import com.jhonata.catapp.model.ResponseDTO
+import br.com.themovies.model.ResponseDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -14,7 +14,7 @@ class MoviesRepositoryImpl @Inject constructor(
     private val api: TheMoviesApi
 ) : MoviesRepository {
     override fun getUpCommingMovies(page: Int) = flow {
-        emit(ResponseDTO.loading<List<ResultResponse>>())
+        emit(ResponseDTO.loading<UpComingMoviesResponse>())
         try {
             val result = api.getUpCommingMovies(page = page)
             result.run {
@@ -22,7 +22,7 @@ class MoviesRepositoryImpl @Inject constructor(
                     emit(ResponseDTO.success(body()))
                 } else {
                     emit(
-                        ResponseDTO.error<List<ResultResponse>>(
+                        ResponseDTO.error<UpComingMoviesResponse>(
                             message = message(),
                             code = code()
                         )
@@ -31,7 +31,7 @@ class MoviesRepositoryImpl @Inject constructor(
             }
 
         } catch (e: Exception) {
-            emit(ResponseDTO.error<List<ResultResponse>>(e))
+            emit(ResponseDTO.error<UpComingMoviesResponse>(e))
         }
     }.flowOn(Dispatchers.IO)
 
