@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import br.com.themovies.R
 import br.com.themovies.databinding.FragmentHomeBinding
 import br.com.themovies.model.response.upcomingmovies.ResultResponse
-import br.com.themovies.ui.adapters.MovieAdapter
+import br.com.themovies.ui.adapters.MoviesAdapter
 import br.com.themovies.viewmodel.HomeViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val adapter: MovieAdapter by lazy { MovieAdapter(::listenerBottom, ::onClickItem) }
-
-    private var lastItem: Int = 0
+    private val adapter: MoviesAdapter by lazy { MoviesAdapter(::listenerBottom, ::onClickItem) }
 
     private val viewModel: HomeViewModel by viewModels()
 
@@ -31,10 +31,12 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
+
         setupObservers()
         viewModel.getUpCommingMovies()
         binding.rvMovies.setHasFixedSize(true)
         binding.rvMovies.adapter = adapter
+
         return view
     }
 
@@ -49,7 +51,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupObservers() {
-
         viewModel.movies.observe(viewLifecycleOwner) {
             if (it.isNotEmpty()) {
                 adapter.setList(it.toList())
@@ -57,14 +58,26 @@ class HomeFragment : Fragment() {
         }
 
         viewModel.loading.observe(viewLifecycleOwner) {
-            //aqui colocar loading
+
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            // aqui colocar aviso do erro
+            if (it.isNullOrEmpty()) {
+                dialog(resources.getString(R.string.cenection_error))
+            } else {
+                dialog(it)
+            }
         }
     }
 
+    private fun dialog(error: String) {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(resources.getString(R.string.error_title))
+            .setMessage(error)
+            .setPositiveButton(resources.getString(R.string.ok)) { dialog, which ->
+            }
+            .show()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

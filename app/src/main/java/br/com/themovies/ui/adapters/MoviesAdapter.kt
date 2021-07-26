@@ -7,22 +7,22 @@ import androidx.recyclerview.widget.ListAdapter
 import br.com.themovies.R
 import br.com.themovies.model.response.upcomingmovies.ResultResponse
 
-class MovieAdapter(
+class MoviesAdapter(
     private val listenerBottom: () -> Unit,
     private val onClickItem: (movie: ResultResponse) -> Unit
 ) :
-    ListAdapter<ResultResponse, MovieViewHolder>(ItemDiffCallback()) {
+    ListAdapter<ResultResponse, MoviesViewHolder>(ItemDiffCallback()) {
 
     fun setList(list: List<ResultResponse>) {
         this.submitList(ArrayList(list))
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movies, parent, false)
-        return MovieViewHolder(view)
+        return MoviesViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item)
         if (itemCount != 0) {

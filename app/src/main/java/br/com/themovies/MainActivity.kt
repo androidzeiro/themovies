@@ -2,6 +2,8 @@ package br.com.themovies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
 import br.com.themovies.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

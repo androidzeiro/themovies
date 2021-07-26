@@ -9,7 +9,7 @@ import br.com.themovies.model.response.upcomingmovies.ResultResponse
 import com.google.android.material.textview.MaterialTextView
 
 
-class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val title: MaterialTextView = itemView.findViewById(R.id.tv_title)
     private val voteAverage: MaterialTextView = itemView.findViewById(R.id.tv_vote_average)
